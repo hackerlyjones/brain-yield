@@ -1,56 +1,60 @@
 import React, {Component} from "react";
-import Header from './components/Header'
-
-import SimpleStorageContract from "./contracts/SimpleStorage.json";
-import getWeb3 from "./getWeb3";
+import {connect} from 'react-redux';
+import {loadWeb3, loadContract, loadAccount, loadStoredData} from "./redux/interactions";
+import {contractSelector, valueSelector} from "./redux/selectors";
+import {subscribeToAccountsChanging} from "./redux/subscriptions";
+import Account from "./components/Account";
+import Header from "./components/Header";
 
 class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
-
-  componentDidMount = async () => {
-    try {
-      const web3 = await getWeb3();
-      const accounts = await web3.eth.getAccounts();
-      const instance = await this.getContractInstance(web3);
-
-      const callback = this.runExample;
-      this.setState({ web3, accounts, contract: instance }, callback);
-    } catch (error) {
-      alert(
-        `Failed to load web3, accounts, or contract. Check console for details.`,
-      );
-      console.error(error);
-    }
-  };
-
-  async getContractInstance(web3) {
-    const networkId = await web3.eth.net.getId();
-    const deployedNetwork = SimpleStorageContract.networks[networkId];
-    return new web3.eth.Contract(
-        SimpleStorageContract.abi,
-        deployedNetwork && deployedNetwork.address,
-    );
-  }
-
-  runExample = async () => {
-    const { accounts, contract } = this.state;
-    const newValue = 17;
-    await contract.methods.set(newValue).send({ from: accounts[0] });
-    const response = await contract.methods.get().call();
-    this.setState({ storageValue: response });
-  };
-
   render() {
-    if (!this.state.web3) {
-      return <div>Loading Web3, accounts, and contract...</div>;
+    const {dispatch, contract, value} = this.props;
+
+    const connectBlockchain = async (e) => {
+      e.preventDefault();
+      const myWeb3 = await loadWeb3(dispatch);
+      await loadAccount(dispatch, myWeb3);
+      const myContract = await loadContract(dispatch, myWeb3);
+      await loadStoredData(dispatch, myContract);
+      subscribeToAccountsChanging(dispatch, myWeb3);
     }
+
+    const buttonClass = `w-100 btn text-truncate ${(contract !== null) ? "disabled btn-success" : "btn-danger"}`
+    const buttonLabel = (contract !== null) ? "Wallet Connected" : "Connect Wallet"
+
     return (
-      <div className="App">
+      <div className="container py-2">
         <Header />
-        <div>The stored value is: {this.state.storageValue}</div>
+        <div className="row justify-content-center">
+          <div className="col-4">
+            <form onSubmit={connectBlockchain}>
+              <div className="form-group row">
+                <div className="col-12">
+                  <button type="submit" className={buttonClass}>
+                    {buttonLabel}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <Account state={this.state} />
+        <div className="row justify-content-center">
+          <div className="col-4">
+            <label>Contract Value: </label>
+            <label>{value}</label>
+          </div>
+        </div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    contract: contractSelector(state),
+    value: valueSelector(state)
+  }
+}
+
+export default connect(mapStateToProps)(App);
