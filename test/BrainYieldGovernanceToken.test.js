@@ -1,8 +1,8 @@
-const BrainYield = artifacts.require("BrainYield")
+const BrainYieldGovernanceToken = artifacts.require("BrainYieldGovernanceToken")
 
-contract("BrainYield", (accounts) => {
+contract("BrainYieldGovernanceToken", (accounts) => {
   before(async () => {
-    brainYield = await BrainYield.deployed()
+    brainYield = await BrainYieldGovernanceToken.deployed()
   })
 
   it("gives the owner of the token 1 million tokens", async () => {
