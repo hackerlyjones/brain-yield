@@ -12,16 +12,22 @@ export function accountLoaded(account) {
   }
 }
 
-export function contractLoaded(contract) {
+export function nftCountLoaded(count) {
   return {
-    type: 'CONTRACT_LOADED',
+    type: 'NFT_COUNT_LOADED',
+    count
+  }
+}
+export function membershipTokenLoaded(contract) {
+  return {
+    type: 'MEMBERSHIP_TOKEN_LOADED',
     contract
   }
 }
 
-export function valueLoaded(value) {
+export function membershipStatusLoaded(status) {
   return {
-    type: 'VALUE_LOADED',
-    value
+    type: 'MEMBERSHIP_STATUS_LOADED',
+    status
   }
 }

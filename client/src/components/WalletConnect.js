@@ -1,21 +1,28 @@
 import React from "react";
-import {loadAccount, loadContract, loadStoredData, loadWeb3} from "../redux/interactions";
+import {
+  loadAccount,
+  loadMembershipStatus,
+  loadMembershipToken,
+  loadNFTCount,
+  loadWeb3
+} from "../redux/interactions";
 import {subscribeToAccountsChanging} from "../redux/subscriptions";
 import {connect} from "react-redux";
-import {contractSelector} from "../redux/selectors";
+import {accountSelector} from "../redux/selectors";
 
-const WalletConnect = ({dispatch, contract}) => {
+const WalletConnect = ({dispatch, account}) => {
   const connectWallet = async (event) => {
     event.preventDefault();
     const myWeb3 = await loadWeb3(dispatch);
-    await loadAccount(dispatch, myWeb3);
-    const myContract = await loadContract(dispatch, myWeb3);
-    await loadStoredData(dispatch, myContract);
+    const account = await loadAccount(dispatch, myWeb3);
+    const membershipToken = await loadMembershipToken(dispatch, myWeb3);
+    await loadNFTCount(dispatch, membershipToken, account);
+    await loadMembershipStatus(dispatch, membershipToken, account);
     subscribeToAccountsChanging(dispatch, myWeb3);
   }
 
-  const buttonClass = `w-100 btn text-truncate ${(contract !== null) ? "disabled btn-success" : "btn-danger"}`
-  const buttonLabel = (contract !== null) ? "Wallet Connected" : "Connect Wallet"
+  const buttonClass = `w-100 btn text-truncate ${(account !== null) ? "disabled btn-success" : "btn-danger"}`
+  const buttonLabel = (account !== null) ? "Wallet Connected" : "Connect Wallet"
 
   return (
     <walletconnect>
@@ -38,7 +45,7 @@ const WalletConnect = ({dispatch, contract}) => {
 
 function mapStateToProps(state) {
   return {
-    contract: contractSelector(state)
+    account: accountSelector(state)
   }
 }
 

@@ -1,7 +1,6 @@
 import getWeb3 from "../getWeb3";
-import { web3Loaded, contractLoaded, accountLoaded, valueLoaded } from "./actions";
-import SimpleStorageContract from "../contracts/SimpleStorage.json";
-
+import { web3Loaded, accountLoaded, nftCountLoaded, membershipStatusLoaded, membershipTokenLoaded } from "./actions";
+import BrainYieldMembershipToken from "../contracts/BrainYieldMembershipToken.json"
 
 export const loadWeb3 = async (dispatch) => {
   const web3 = await getWeb3();
@@ -16,19 +15,25 @@ export const loadAccount = async (dispatch, web3) => {
   return account;
 }
 
-export const loadContract = async (dispatch, web3) => {
+export const loadMembershipToken = async (dispatch, web3) => {
   const networkId = await web3.eth.net.getId();
-  const deployedNetwork = SimpleStorageContract.networks[networkId];
+  const deployedNetwork = BrainYieldMembershipToken.networks[networkId];
   const instance = new web3.eth.Contract(
-    SimpleStorageContract.abi,
+    BrainYieldMembershipToken.abi,
     deployedNetwork && deployedNetwork.address,
   );
-  dispatch(contractLoaded(instance));
+  dispatch(membershipTokenLoaded(instance));
   return instance;
 }
 
-export const loadStoredData = async (dispatch, contract) => {
-  const value = await contract.methods.get().call();
-  dispatch(valueLoaded(value));
-  return value;
+export const loadNFTCount = async (dispatch, membershipToken, account) => {
+  const count = await membershipToken.methods.balanceOf(account).call();
+  dispatch(nftCountLoaded(count));
+  return count;
+}
+
+export const loadMembershipStatus = async (dispatch, membershipToken, account) => {
+  const isMember = await membershipToken.methods.isMember(account).call();
+  dispatch(membershipStatusLoaded(isMember));
+  return isMember;
 }

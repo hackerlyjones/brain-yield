@@ -43,4 +43,20 @@ contract("BrainYieldMembershipToken with Royalties", (accounts) => {
     assert.equal(erc2981Royalties.royaltyAmount, expectedCut);
     assert.equal(erc2981Royalties.receiver, deployerAddress);
   })
+
+  it("returns true when the user is a member", async () => {
+    const brainYieldNFT = await BrainYieldMembershipToken.deployed();
+
+    const isMember = await brainYieldNFT.isMember(userWallet);
+
+    assert.equal(isMember, true);
+  })
+
+  it("returns false when the user is not a member", async () => {
+    const brainYieldNFT = await BrainYieldMembershipToken.deployed();
+
+    const isMember = await brainYieldNFT.isMember(accounts[5]);
+
+    assert.equal(isMember, false);
+  })
 })

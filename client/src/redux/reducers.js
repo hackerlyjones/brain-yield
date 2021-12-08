@@ -11,19 +11,19 @@ function web3(state = {}, action) {
   }
 }
 
-function contract(state = {}, action) {
+function membership(state = {}, action) {
   switch (action.type) {
-    case 'CONTRACT_LOADED':
-      return { ...state, contract: action.contract };
-    case 'VALUE_LOADED':
-      return { ...state, value: action.value };
+    case 'NFT_COUNT_LOADED':
+      return { ...state, count: action.count}
+    case 'MEMBERSHIP_TOKEN_LOADED':
+      return { ...state, contract: action.contract}
+    case 'MEMBERSHIP_STATUS_LOADED':
+      return { ...state, status: action.status}
     default:
       return state;
   }
 }
 
-const rootReducer = new combineReducers({
-  web3, contract
-});
+const rootReducer = new combineReducers({web3, membership});
 
 export default rootReducer;

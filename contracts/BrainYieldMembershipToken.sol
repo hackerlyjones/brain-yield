@@ -49,6 +49,10 @@ contract BrainYieldMembershipToken is ERC721Enumerable, Ownable, RoyaltiesV2Impl
     return super.supportsInterface(interfaceID);
   }
 
+  function isMember(address _walletAddress) public view returns (bool) {
+    return super.balanceOf(_walletAddress) > 0;
+  }
+
   function _baseURI() internal view virtual override returns (string memory) {
     return "http://0.0.0.0/update/nft/metadata/addy/";
   }

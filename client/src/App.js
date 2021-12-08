@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import Account from "./components/Account";
 import Header from "./components/Header";
-import TokenBalance from "./components/TokenBalance";
 import WalletConnect from "./components/WalletConnect";
+import Account from "./components/Account";
+import Member from "./components/Member";
 
 class App extends Component {
   render() {
@@ -11,7 +11,7 @@ class App extends Component {
         <Header />
         <WalletConnect />
         <Account />
-        <TokenBalance />
+        <Member />
       </div>
     )
   }
