@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "./@rarible/royalties/contracts/impl/RoyaltiesV2Impl.sol";
 import "./@rarible/royalties/contracts/LibPart.sol";
 import "./@rarible/royalties/contracts/LibRoyaltiesV2.sol";
 
-contract BrainYieldMembershipToken is ERC721, Ownable, RoyaltiesV2Impl {
+contract BrainYieldMembershipToken is ERC721Enumerable, Ownable, RoyaltiesV2Impl {
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIDTracker;
   bytes4 private constant _INTERFACE_ID_ERC2981 = 0x2a55205a;
@@ -37,7 +37,7 @@ contract BrainYieldMembershipToken is ERC721, Ownable, RoyaltiesV2Impl {
     return (address(0), 0);
   }
 
-  function supportsInterface(bytes4 interfaceID) public view virtual override(ERC721) returns (bool) {
+  function supportsInterface(bytes4 interfaceID) public view virtual override(ERC721Enumerable) returns (bool) {
     if (interfaceID == LibRoyaltiesV2._INTERFACE_ID_ROYALTIES) {
       return true;
     }
