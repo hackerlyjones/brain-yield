@@ -16,7 +16,7 @@ const Account = ({account}) => {
   return (
     <account>
       <div className="row justify-content-center">
-        <div className="col-4 fs-6">
+        <div className="col-6 fs-6">
           <label>Account:</label>&nbsp;<span className="font-monospace">{getFormattedAccount(account)}</span>
         </div>
       </div>

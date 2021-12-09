@@ -27,7 +27,7 @@ const WalletConnect = ({dispatch, account}) => {
   return (
     <walletconnect>
       <div className="row justify-content-center">
-        <div className="col-4">
+        <div className="col-6">
           <form onSubmit={connectWallet}>
             <div className="form-group row">
               <div className="col-12">

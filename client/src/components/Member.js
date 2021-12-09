@@ -7,12 +7,12 @@ const Member = ({count, status}) => {
   return (
     <member>
       <div className="row justify-content-center">
-        <div className="col-4">
+        <div className="col-6">
           <label>Member:</label>&nbsp;<span>{isMember}</span>
         </div>
       </div>
       <div className="row justify-content-center">
-        <div className="col-4">
+        <div className="col-6">
           <label>NFTs Owned:</label>&nbsp;<span>{count}</span>
         </div>
       </div>

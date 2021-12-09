@@ -5,7 +5,7 @@ const Navigation = () => {
   return (
     <navigation>
       <div className="row justify-content-center">
-        <div className="col-4">
+        <div className="col-6">
           <ul>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/newsletter">Newsletter</Link></li>

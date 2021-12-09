@@ -10,6 +10,7 @@ import WalletConnect from "./components/WalletConnect";
 import Account from "./components/Account";
 import Member from "./components/Member";
 import Navigation from "./components/Navigation";
+import NewsletterContent from "./components/NewsletterContent";
 
 function App() {
   return (
@@ -45,8 +46,8 @@ function Newsletter() {
         <Navigation />
       </nav>
       <main>
-        <Header title="Newsletter" />
-        <Member />
+        <Header title="NewsletterContent" />
+        <NewsletterContent />
       </main>
     </div>
   )
