@@ -1,20 +1,55 @@
-import React, {Component} from "react";
+import React from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
+
 import Header from "./components/Header";
 import WalletConnect from "./components/WalletConnect";
 import Account from "./components/Account";
 import Member from "./components/Member";
+import Navigation from "./components/Navigation";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="container py-2">
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/newsletter" element={<Newsletter />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+function Home() {
+  return (
+    <div className="container py-2">
+      <nav>
+        <Navigation />
+      </nav>
+      <main>
         <Header />
         <WalletConnect />
         <Account />
         <Member />
-      </div>
-    )
-  }
+      </main>
+    </div>
+  )
+}
+
+function Newsletter() {
+  return (
+    <div className="container py-2">
+      <nav>
+        <Navigation />
+      </nav>
+      <main>
+        <Header title="Newsletter" />
+        <Member />
+      </main>
+    </div>
+  )
 }
 
 export default App;
