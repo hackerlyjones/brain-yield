@@ -3,11 +3,9 @@ import PropTypes from 'prop-types'
 
 const Header = ({title}) => {
   return (
-    <header>
-      <div className="row">
-        <h1 className="text-center">{title}</h1>
-      </div>
-    </header>
+    <div className="row">
+      <h1 className="text-center">{title}</h1>
+    </div>
   )
 }
 

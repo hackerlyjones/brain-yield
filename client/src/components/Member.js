@@ -5,7 +5,7 @@ import {membershipStatusSelector, nftCountSelector} from "../redux/selectors";
 const Member = ({count, status}) => {
   const isMember = status ? "Yes" : "No";
   return (
-    <member>
+    <div>
       <div className="row justify-content-center">
         <div className="col-6">
           <label>Member:</label>&nbsp;<span>{isMember}</span>
@@ -16,7 +16,7 @@ const Member = ({count, status}) => {
           <label>NFTs Owned:</label>&nbsp;<span>{count}</span>
         </div>
       </div>
-    </member>
+    </div>
   )
 }
 
