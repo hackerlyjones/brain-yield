@@ -23,11 +23,7 @@ const NewsletterContent = ({status}) => {
     </div>
   )
 
-  return (
-    <newslettercontent>
-      {hasNewsletter ? newsletterContent : unauthorizedContent}
-    </newslettercontent>
-  )
+  return hasNewsletter ? newsletterContent : unauthorizedContent;
 }
 
 function mapStateToProps(state) {

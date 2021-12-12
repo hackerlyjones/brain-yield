@@ -25,21 +25,19 @@ const WalletConnect = ({dispatch, account}) => {
   const buttonLabel = (account !== null) ? "Wallet Connected" : "Connect Wallet"
 
   return (
-    <walletconnect>
-      <div className="row justify-content-center">
-        <div className="col-6">
-          <form onSubmit={connectWallet}>
-            <div className="form-group row">
-              <div className="col-12">
-                <button type="submit" className={buttonClass}>
-                  {buttonLabel}
-                </button>
-              </div>
+    <div className="row justify-content-center">
+      <div className="col-6">
+        <form onSubmit={connectWallet}>
+          <div className="form-group row">
+            <div className="col-12">
+              <button type="submit" className={buttonClass}>
+                {buttonLabel}
+              </button>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
-    </walletconnect>
+    </div>
   )
 }
 

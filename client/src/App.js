@@ -26,9 +26,7 @@ function App() {
 function Home() {
   return (
     <div className="container py-2">
-      <nav>
-        <Navigation />
-      </nav>
+      <Navigation />
       <main>
         <Header />
         <WalletConnect />
@@ -42,9 +40,7 @@ function Home() {
 function Newsletter() {
   return (
     <div className="container py-2">
-      <nav>
-        <Navigation />
-      </nav>
+      <Navigation />
       <main>
         <Header title="NewsletterContent" />
         <NewsletterContent />
