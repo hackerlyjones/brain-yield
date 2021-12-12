@@ -1,5 +1,55 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Truffle Console
+
+Run this command, in order to launch the truffle development console:
+
+```bash
+$ truffle development
+```
+
+You can compile the contracts like this:
+
+```bash
+truffle(develop)> compile
+```
+
+This will also compile the contracts, but then also deploy. I usually use `--reset` out of habit, as I often want to do
+so in development to reset the environment.
+
+```bash
+truffle(develop)> migrate --reset
+```
+
+Once deployed, you can fetch a copy of a contract, in order to execute commands against it:
+
+```bash
+truffle(develop)> let nft = await BrainYieldMembershipToken.deployed();
+truffle(develop)> let governanceToken = await BrainYieldGovernanceToken.deployed();
+```
+
+Now, you can mint an NFT:
+
+```bash
+truffle(develop)> let receivingAddress = "0xWhatever"
+truffle(develop)> nft.mint(receivingAddress);
+```
+
+You can confirm the NFT was sent to the address:
+
+```bash
+truffle(develop)> let receivingAddress = "0xWhatever"
+truffle(develop)> nft.balanceOf(receivingAddress);
+```
+
+## Testing Contracts
+
+You can execute tests against the contracts via truffle:
+
+```bash
+$ truffle test
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
