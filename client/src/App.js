@@ -19,8 +19,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/newsletter" element={<Newsletter/>}/>
+        <Route path="/" element={<Home/>} />
+        <Route path="/newsletter" element={<Newsletter/>} />
+        <Route path="/newsletterShow" element={<NewsletterShow/>} />
       </Routes>
     </BrowserRouter>
   );
@@ -48,8 +49,20 @@ function Newsletter() {
         <Header title="The BrainYield™ Newsletter"/>
         <ConfigureAmplify />
         <NewsletterIndex />
-        <NewsletterContent/>
         <Upload />
+      </main>
+    </div>
+  )
+}
+
+function NewsletterShow() {
+  return (
+    <div className="container py-2">
+      <Navigation/>
+      <main>
+        <Header title="The BrainYield™ Newsletter"/>
+        <ConfigureAmplify />
+        <NewsletterContent/>
       </main>
     </div>
   )

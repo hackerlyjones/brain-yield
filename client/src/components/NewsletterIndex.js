@@ -15,7 +15,7 @@ const NewsletterIndex = () => {
 
   return (
     <div className="row justify-content-center">
-      <table className="col-6">
+      <table className="col-6" id="fileIndex">
         <thead>
         <tr>
           <td>Entry</td>
@@ -24,7 +24,7 @@ const NewsletterIndex = () => {
         </thead>
         <tbody>
         {files.map((file, index) => (
-          <tr key={file.key}>
+          <tr key={file.key} id={file.key}>
             <td>{index}</td>
             <td>{file.key}</td>
           </tr>
