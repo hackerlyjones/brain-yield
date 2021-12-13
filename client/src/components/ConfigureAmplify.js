@@ -1,4 +1,3 @@
-import React from "react";
 import Amplify from "@aws-amplify/core"
 
 const ConfigureAmplify = () => {

@@ -1,38 +1,39 @@
 import React, {useEffect, useState} from "react";
 import {Storage} from "aws-amplify";
 import {connect} from "react-redux";
-import {useLocation} from "react-router-dom";
-import queryString from "query-string";
+import {useParams} from "react-router-dom";
+import Markdown from "markdown-to-jsx";
 import {membershipStatusSelector} from "../redux/selectors";
 
 const NewsletterContent = ({status}) => {
   const hasNewsletter = status;
-  const location = useLocation();
-  const key = queryString.parse(location.search).key + ".md";
-  console.log("Newsletter File: s3/" + key);
+  const { key } = useParams();
+  console.log(key);
 
-  const [copy, setCopy] = useState([]);
+  const [copy, setCopy] = useState("#### Loading…");
 
   // useEffect will only call once; inline will call every re-render tick
   useEffect(() => {
-    Storage.get(key, {
-        download: true,
-        contentType: "application/text"
+    Storage.get(key + ".md", {
+      download: true,
+      contentType: "application/text"
     }).then(result => {
-      const copy = result.Body.text().then(copy => {
+      result.Body.text().then(copy => {
         console.log("Copy downloaded");
         console.log(copy);
         setCopy(copy);
       }).catch(error => console.log(error));
     }).catch(error => console.log(error));
 
-  }, [])
+  }, [key])
 
   const newsletterContent = (
     <div>
       <div className="row justify-content-center">
         <div className="col-6">
-          <p>This is the newsletter.</p>
+          <Markdown options={{wrapper: 'article'}}>
+            {copy}
+          </Markdown>
         </div>
       </div>
     </div>
@@ -41,7 +42,7 @@ const NewsletterContent = ({status}) => {
     <div>
       <div className="row justify-content-center">
         <div className="col-6">
-          {copy}
+          <p>You are not worthy.</p>
         </div>
       </div>
     </div>

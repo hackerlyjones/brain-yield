@@ -14,6 +14,7 @@ import ConfigureAmplify from "./components/ConfigureAmplify";
 import NewsletterIndex from "./components/NewsletterIndex";
 import NewsletterContent from "./components/NewsletterContent";
 import Upload from "./components/Upload";
+import "./App.css";
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/newsletter" element={<Newsletter/>} />
-        <Route path="/newsletterShow" element={<NewsletterShow/>} />
+        <Route path="/newsletter/show/:key" element={<NewsletterShow/>} />
+        <Route path="/newsletter/admin" element={<NewsletterAdmin/>} />
       </Routes>
     </BrowserRouter>
   );
@@ -49,7 +51,6 @@ function Newsletter() {
         <Header title="The BrainYield™ Newsletter"/>
         <ConfigureAmplify />
         <NewsletterIndex />
-        <Upload />
       </main>
     </div>
   )
@@ -60,9 +61,21 @@ function NewsletterShow() {
     <div className="container py-2">
       <Navigation/>
       <main>
-        <Header title="The BrainYield™ Newsletter"/>
         <ConfigureAmplify />
         <NewsletterContent/>
+      </main>
+    </div>
+  )
+}
+
+function NewsletterAdmin() {
+  return (
+    <div className="container py-2">
+      <Navigation/>
+      <main>
+        <Header title="Upload Articles"/>
+        <ConfigureAmplify />
+        <Upload />
       </main>
     </div>
   )
